@@ -1,0 +1,12 @@
+USE wmaysuikassign2db;
+SELECT * FROM product;
+SELECT * FROM agent;
+SELECT * FROM customer;
+SELECT * FROM buys;
+CREATE VIEW itemspurchased AS SELECT firstname, lastname, description, quantity, cost, quantity*cost AS "Total Cost" FROM customer INNER JOIN buys ON customer.customerid=buys.customerid INNER JOIN product ON buys.productid=product.productid ORDER BY lastname;
+SELECT * FROM itemspurchased;
+SELECT * FROM itemspurchased WHERE quantity*cost > 100;
+DELETE FROM product WHERE description="Graphics Cards";
+SELECT * FROM product;
+DELETE FROM agent WHERE city="Springfield";
+-- The agents from Springfield were not deleted because they are referenced by way of non null foreign key in the customer table

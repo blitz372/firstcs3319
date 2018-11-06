@@ -1,0 +1,31 @@
+USE wmaysuikassign2db;
+-- Query 1
+SELECT description FROM product;
+-- Query 2
+SELECT DISTINCT city FROM customer;
+-- Query 3
+SELECT * FROM agent ORDER BY city ASC;
+-- Query 4
+SELECT firstname, lastname FROM customer WHERE city="Springfield";
+-- Query 5
+SELECT lastname FROM customer WHERE agentid=11;
+-- Query 6
+SELECT description FROM product WHERE description LIKE "%pad%" OR "%Pad%";
+-- Query 7
+SELECT lastname, description, quantity FROM customer INNER JOIN buys ON customer.customerid=buys.customerid INNER JOIN product ON buys.productid=product.productid;
+-- Query 8
+SELECT SUM(quantity) AS "Homer's Total Purchases" FROM customer INNER JOIN buys ON customer.customerid=buys.customerid WHERE customer.firstname="Homer";
+-- Query 9
+SELECT firstname, lastname, SUM(quantity) AS "Total Purchases" FROM customer INNER JOIN buys ON customer.customerid=buys.customerid GROUP BY lastname;
+-- Query 10
+SELECT description, inventory FROM product WHERE product.productid NOT IN (SELECT productid FROM buys);
+-- Query 11
+SELECT description, quantity FROM product INNER JOIN buys ON product.productid=buys.productid INNER JOIN customer ON buys.customerid=customer.customerid WHERE customer.firstname != "Fred" AND customer.lastname != "Flinstone";
+-- Query 12
+SELECT agent.firstname, agent.lastname, customer.firstname, customer.lastname FROM agent INNER JOIN customer ON agent.agentid=customer.agentid WHERE agent.city=customer.city;
+-- Query 13
+SELECT SUM(quantity) AS "Total Kneepad Purchases" FROM buys WHERE productid=78;
+-- Query 14
+SELECT description FROM product INNER JOIN buys ON product.productid=buys.productid GROUP BY description HAVING COUNT(*) > 3;
+-- Query 15
+SELECT agent.firstname, agent.lastname FROM agent INNER JOIN customer ON agent.agentid=customer.agentid INNER JOIN buys ON customer.customerid=buys.customerid INNER JOIN product ON buys.productid=product.productid WHERE description="Knee pads";
